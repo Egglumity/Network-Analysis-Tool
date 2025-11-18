@@ -2,6 +2,7 @@
 
 ## Install
 bash
+
 pip install PyQt5 psutil netifaces
 
 To use, first clone the repository:
