@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-# Dependency check (quick)
+# Check for dependencies (Fast)
 def check_dependencies():
     missing = []
     try:
@@ -49,9 +49,8 @@ from PyQt5 import QtCore, QtGui, QtPrintSupport, QtWidgets
 __version__ = "1.0"
 APP_NAME = "Squib"
 
-# -------------------------
-# Default files & config
-# -------------------------
+# DEFAULT FILES & CONFIGURATION
+
 DEFAULT_README = """# Squib
 
 Squib is a network snapshot and analysis tool.
@@ -102,9 +101,9 @@ def write_changelog_if_missing():
     if not path.exists():
         path.write_text(DEFAULT_CHANGELOG)
 
-# -------------------------
-# Data model
-# -------------------------
+
+# MAIN DATA MODEL
+
 @dataclass
 class InterfaceRow:
     name: str
@@ -178,9 +177,9 @@ class Snapshot:
         self.sha256 = digest
         return json.dumps(base, indent=2, sort_keys=True)
 
-# -------------------------
-# Helpers & collectors
-# -------------------------
+
+# COLLECTORS AND HELPERS 
+
 HIGH_RISK_PORTS = {23, 4444, 1337, 31337, 3389, 6667}
 TEMP_DIR_PREFIXES = ("/tmp", "/dev/shm", "/var/tmp")
 
@@ -411,9 +410,9 @@ def postprocess_snapshot(snapshot: Snapshot) -> None:
                                         reason=", ".join(reasons), extra=extra_str))
     snapshot.suspicious = suspicious
 
-# -------------------------
-# Worker
-# -------------------------
+
+# WORKER CLASS
+
 class ScanWorker(QtCore.QThread):
     finished = QtCore.pyqtSignal(object)
     failed = QtCore.pyqtSignal(str)
@@ -429,9 +428,9 @@ class ScanWorker(QtCore.QThread):
         except Exception as e:
             self.failed.emit(str(e))
 
-# -------------------------
-# GUI components
-# -------------------------
+
+# GUI COMPONENTS
+
 class ClickableLabel(QtWidgets.QLabel):
     clicked = QtCore.pyqtSignal()
     def mousePressEvent(self, event):
@@ -501,9 +500,9 @@ class Toast(QtWidgets.QWidget):
         self.show()
         self.timer.start(self.timeout)
 
-# -------------------------
-# Main window
-# -------------------------
+
+# MAIN WINDOW
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -937,9 +936,9 @@ class MainWindow(QtWidgets.QMainWindow):
         current = bool(self.config.get("dark_mode", False))
         self.enable_dark_mode(not current)
 
-# -------------------------
-# Main entry point
-# -------------------------
+
+# MAIN ENTRY POINTS
+
 def main():
     # GUI required check
     if platform.system() == "Linux" and "DISPLAY" not in os.environ:
