@@ -7,7 +7,9 @@ pip install PyQt5 psutil netifaces
 To use, first clone the repository:
 
 git clone https://github.com/Egglumity/Squib-Network_Analysis_Tool
+
 cd network-analysis-tool
+
 pip install -e .
 
 launch by typing:
