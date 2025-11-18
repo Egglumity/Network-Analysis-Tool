@@ -22,15 +22,15 @@ from typing import Any, Dict, List, Optional
 def check_dependencies():
     missing = []
     try:
-        import PyQt5  # noqa: F401
+        import PyQt5 
     except Exception:
         missing.append("PyQt5")
     try:
-        import psutil  # noqa: F401
+        import psutil 
     except Exception:
         missing.append("psutil")
     try:
-        import netifaces  # noqa: F401
+        import netifaces  
     except Exception:
         missing.append("netifaces")
     if missing:
